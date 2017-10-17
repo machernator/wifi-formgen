@@ -97,6 +97,8 @@ class FormField {
             'name="' . 
             $this->name .
             '"';
+        // TODO: value 
+        
         // tagAttributes
         $out .= $this->renderTagAttributes(); 
         $out .= '>';
