@@ -3,6 +3,7 @@ class FormField {
     private $id = '';
     private $name = '';
     private $label = '';
+    private $type = '';
     private $dataType = '';
     private $minLen = 0;
     private $maxLen = 0;
@@ -33,6 +34,14 @@ class FormField {
         else {
             die("Konfigurationsfehler: label");
         }
+
+        // type
+        if (array_key_exists('type', $conf) && $conf['type'] !== '') {
+            $this->type = $conf['type'];
+        }
+        else {
+            die("Konfigurationsfehler: type");
+        }
         
         // dataType
         if (array_key_exists('dataType', $conf) && $conf['dataType'] !== '') {
@@ -56,5 +65,25 @@ class FormField {
         if (array_key_exists('tagAttributes', $conf) && is_array($conf['tagAttributes'])){
             $this->tagAttributes = $conf['tagAttributes'];
         }
+    }
+
+    public function render() {
+        $out = '';
+        // Label
+        $out .= '<label for="' . 
+                 $this->id . 
+                 '">' .
+                 $this->label .
+                 '</label>';
+
+        // Input Tag
+        $out .= '<input type="' .
+                $this->type . 
+                '" ' . 
+                'name="' . 
+                $this->name .
+                '">';
+
+        return $out;
     }
 }
