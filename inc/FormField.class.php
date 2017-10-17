@@ -73,9 +73,9 @@ class FormField {
         $out .= $this->renderLabel();
         // Input Tag
         $out .= $this->renderField();        
-
         // Error Message
-
+        $out .= $this->renderError();        
+        
         return $out;
     }
 
@@ -96,7 +96,20 @@ class FormField {
             '" ' . 
             'name="' . 
             $this->name .
-            '">';
+            '"';
+        // tagAttributes
+        foreach ($this->tagAttributes as $key => $value) {
+            $out .= ' ' .
+                    $key .
+                    '="' .
+                    $value .
+                    '"';
+        }
+        $out .= '>';
         return $out;
+    }
+
+    public function renderError() {
+        return '';
     }
 }

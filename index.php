@@ -22,7 +22,8 @@
             "minLen" => 3,
             "tagAttributes" => [
                 "class" => "form-field",
-                "placeholder" => "Ihr Name"
+                "placeholder" => "Ihr Name",
+                // "onclick" => "alert('Jipie')"
             ]
         ],
         "password" => [
