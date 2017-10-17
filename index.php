@@ -26,6 +26,7 @@
             ]
         ],
         "password" => [
+            "name" => "password",
             "id" => "passWord",
             "label" => "Passwort",
             "type" => "password",
@@ -39,12 +40,20 @@
         $f->render();
     */
     ?>
-    <form action="" method="post">
+    <form action="" method="post" class="pure-form pure-form-stacked">
         <?php
         $userName = new FormField($fields['username']);
-        echo "<pre>";
+        echo $userName->render();
+
+        $password = new FormField($fields['password']);
+        echo $password->renderLabel();
+        echo '<p>blabla</p>';
+        echo $password->renderField();
+
+        
+        /* echo "<pre>";
         print_r($userName);
-        echo "</pre>";
+        echo "</pre>"; */
         
         /* 
             Ergebnis:

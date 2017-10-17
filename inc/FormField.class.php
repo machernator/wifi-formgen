@@ -70,20 +70,33 @@ class FormField {
     public function render() {
         $out = '';
         // Label
-        $out .= '<label for="' . 
-                 $this->id . 
-                 '">' .
-                 $this->label .
-                 '</label>';
-
+        $out .= $this->renderLabel();
         // Input Tag
-        $out .= '<input type="' .
-                $this->type . 
-                '" ' . 
-                'name="' . 
-                $this->name .
-                '">';
+        $out .= $this->renderField();        
 
+        // Error Message
+
+        return $out;
+    }
+
+    public function renderLabel() {
+        $out = '';
+        $out .= '<label for="' . 
+            $this->id . 
+            '">' .
+            $this->label .
+            '</label>';
+        return $out;
+    }
+
+    public function renderField() {
+        $out = '';
+        $out .= '<input type="' .
+            $this->type . 
+            '" ' . 
+            'name="' . 
+            $this->name .
+            '">';
         return $out;
     }
 }
