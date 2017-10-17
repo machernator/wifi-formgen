@@ -11,6 +11,7 @@
     <h1>Form Generator</h1>
     <?php
     require_once 'inc/FormField.class.php';
+    require_once 'inc/Textarea.class.php';
     // Alle Formularfelder
     $fields = [
         "username" => [
@@ -46,7 +47,7 @@
         $userName = new FormField($fields['username']);
         echo $userName->render();
 
-        $password = new FormField($fields['password']);
+        $password = new Textarea($fields['password']);
         echo $password->renderLabel();
         echo '<p>blabla</p>';
         echo $password->renderField();

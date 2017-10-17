@@ -1,13 +1,13 @@
 <?php
 class FormField {
-    private $id = '';
-    private $name = '';
-    private $label = '';
-    private $type = '';
-    private $dataType = '';
-    private $minLen = 0;
-    private $maxLen = 0;
-    private $tagAttributes = [];
+    protected $id = '';
+    protected $name = '';
+    protected $label = '';
+    protected $type = '';
+    protected $dataType = '';
+    protected $minLen = 0;
+    protected $maxLen = 0;
+    protected $tagAttributes = [];
 
     public function __construct(array $conf) {
         //// Pflichtfelder
@@ -98,6 +98,17 @@ class FormField {
             $this->name .
             '"';
         // tagAttributes
+        $out .= $this->renderTagAttributes(); 
+        $out .= '>';
+        return $out;
+    }
+
+    public function renderError() {
+        return '';
+    }
+
+    protected function renderTagAttributes() {
+        $out = '';
         foreach ($this->tagAttributes as $key => $value) {
             $out .= ' ' .
                     $key .
@@ -105,11 +116,7 @@ class FormField {
                     $value .
                     '"';
         }
-        $out .= '>';
+        
         return $out;
-    }
-
-    public function renderError() {
-        return '';
     }
 }
