@@ -48,9 +48,10 @@
         echo $userName->render();
 
         $password = new Textarea($fields['password']);
-        echo $password->renderLabel();
+        $password->render();
+        /* echo $password->renderLabel();
         echo '<p>blabla</p>';
-        echo $password->renderField();
+        echo $password->renderField(); */
 
         
         /* echo "<pre>";

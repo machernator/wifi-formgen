@@ -1,6 +1,11 @@
 <?php
 class Textarea extends FormField {
-    public function renderField() {
+    /**
+     * Textarea wird ausgegeben
+     *
+     * @return string
+     */
+    public function renderField() : string {
         $out = '';
         $out .= '<textarea name="' . 
             $this->name .

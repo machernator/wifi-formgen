@@ -67,7 +67,7 @@ class FormField {
         }
     }
 
-    public function render() {
+    public function render() : string {
         $out = '';
         // Label
         $out .= $this->renderLabel();
@@ -79,7 +79,7 @@ class FormField {
         return $out;
     }
 
-    public function renderLabel() {
+    public function renderLabel() : string {
         $out = '';
         $out .= '<label for="' . 
             $this->id . 
@@ -89,7 +89,7 @@ class FormField {
         return $out;
     }
 
-    public function renderField() {
+    public function renderField() : string {
         $out = '';
         $out .= '<input type="' .
             $this->type . 
@@ -103,11 +103,11 @@ class FormField {
         return $out;
     }
 
-    public function renderError() {
+    public function renderError() : string {
         return '';
     }
 
-    protected function renderTagAttributes() {
+    protected function renderTagAttributes() : string {
         $out = '';
         foreach ($this->tagAttributes as $key => $value) {
             $out .= ' ' .
