@@ -10,9 +10,11 @@
 <body>
     <h1>Form Generator</h1>
     <?php
+    require_once 'inc/FormField.class.php';
     // Alle Formularfelder
     $fields = [
         "username" => [
+            "name" => "username",
             "id" => "userName",
             "label" => "Name",
             "type" => "text",
@@ -39,19 +41,16 @@
     ?>
     <form action="" method="post">
         <?php
-        $userName = new FormField($fields['userName']);
+        $userName = new FormField($fields['username']);
         echo "<pre>";
         print_r($userName);
         echo "</pre>";
-        $password = new FormField($fields['password']);
-
-        $userName->render();
+        
         /* 
             Ergebnis:
             <label for="userName">Name</label>
             <input type="text" name="userName" id="userName" class="form-field" placeholder="Ihr Name">
         */
-        $password->render();
         ?>
     </form>
 </body>
