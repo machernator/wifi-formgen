@@ -10,6 +10,7 @@ class FormField {
     protected $minLen = 0;
     protected $maxLen = 0;
     protected $error = '';
+    protected $value = '';
     protected $tagAttributes = [];
 
     public function __construct(array $conf) {

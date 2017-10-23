@@ -31,7 +31,7 @@ class Form {
         }
 
         // id
-        if (array_key_exists('id', $conf) && $conf['id'] !== '') {
+        if (array_key_exists('id', $conf)) {
             $this->id = $conf['id'];
         }
 
@@ -41,8 +41,48 @@ class Form {
         }
 
         // fields
-        if (array_key_exists('fields', $conf) && is_array($conf['fields'])){
-            $this->fields = $conf['fields'];
+        if (array_key_exists('fields', $conf) &&
+            is_array($conf['fields']) &&
+            count($conf['fields']) > 0){
+            // $this->fields mit FormField Ojbjekten befüllen
+            $this->createFields($conf['fields']);
+        }
+    }
+
+    /**
+     * Befüllt $this->fields mit FormField Objekten
+     *
+     * @param array $fields
+     * @return void
+     */
+    private function createFields(array $fields) {
+        // Schleife über alle Felder
+        foreach ($fields as $value) {
+            /* 
+                Alternative zu if/else if, wenn die Anzahl der möglichen
+                Werte im Vorhinein bekannt ist.
+            */
+            switch($value['type']){
+                // wenn $value['type'] select ist
+                case 'select':
+                    $this->fields[ $value['name'] ] = new \FormLib\Select($value);
+                    // beende switch
+                    break;
+                case 'checkbox':
+                    $this->fields[ $value['name'] ] = new \FormLib\Checkbox($value);
+                    break;
+                case 'radio':
+                    $this->fields[ $value['name'] ] = new \FormLib\Radio($value);
+                    break;
+                case 'textarea':
+                    $this->fields[ $value['name'] ] = new \FormLib\Textarea($value);
+                    break;
+                // wenn keiner der vorigen Fälle zutrifft (else)
+                default:
+                    $this->fields[ $value['name'] ] = new \FormLib\FormField($value);
+            }
+            echo $this->fields[ $value['name'] ]->render();
+            echo '<br>';
         }
 
     }

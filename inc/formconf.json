@@ -7,18 +7,21 @@
         {
             "name": "vorname",
             "type": "text",
+            "label": "Vorname",
             "dataType": "name",
             "id": "vorName"
         },
         {
             "name": "nachname",
             "type": "text",
+            "label": "Nachname",
             "dataType": "name",
             "id": "nachName"
         },
         {
             "name": "anrede",
             "type": "radio",
+            "label": "Anrede",
             "dataType": "whitelist",
             "id": "anrede",
             "values": {
