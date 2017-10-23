@@ -29,6 +29,8 @@
         <pre>
         <?php
         include 'inc/init.inc.php';
+        $myForm = new FormLib\Form($formConf);
+        print_r($myForm);
 
         ?>
         </pre>

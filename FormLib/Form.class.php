@@ -14,11 +14,36 @@ class Form {
 
  
     /**
-     * Undocumented function
+     * Konstruktor
      *
      * @param array $conf
      */
     public function __construct(array $conf) {
+        // method
+        $this->method = 'post';
+        if (array_key_exists('method', $conf) && strtolower($conf['method']) === 'get'){
+            $this->method = 'get';
+        }
+
+        // action
+        if (array_key_exists('action', $conf)) {
+            $this->action = $conf['action'];
+        }
+
+        // id
+        if (array_key_exists('id', $conf) && $conf['id'] !== '') {
+            $this->id = $conf['id'];
+        }
+
+        // tagAttributes
+        if (array_key_exists('tagAttributes', $conf) && is_array($conf['tagAttributes'])){
+            $this->tagAttributes = $conf['tagAttributes'];
+        }
+
+        // fields
+        if (array_key_exists('fields', $conf) && is_array($conf['fields'])){
+            $this->fields = $conf['fields'];
+        }
 
     }
 
