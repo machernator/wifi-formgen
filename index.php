@@ -71,6 +71,11 @@
         ]
     ];
 
+    $fieldsJson = json_encode($fields);
+    echo '<pre>';
+    print_r($fieldsJson);
+    echo '</pre>';
+
     /* Ziel:
         $f = new Form($conf);
         $f->render();
