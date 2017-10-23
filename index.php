@@ -10,10 +10,11 @@
 <body>
     <h1>Form Generator</h1>
     <?php
-    require_once 'inc/FormField.class.php';
+   /*  require_once 'inc/FormField.class.php';
     require_once 'inc/Textarea.class.php';
     require_once 'inc/Radio.class.php';
-    require_once 'inc/Select.class.php';
+    require_once 'inc/Select.class.php'; */
+
     // Alle Formularfelder
     $fields = [
         "username" => [
@@ -70,7 +71,6 @@
             ]
 
         ]
-
     ];
 
     /* Ziel:
