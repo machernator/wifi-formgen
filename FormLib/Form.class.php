@@ -81,8 +81,6 @@ class Form {
                 default:
                     $this->fields[ $value['name'] ] = new \FormLib\FormField($value);
             }
-            echo $this->fields[ $value['name'] ]->render();
-            echo '<br>';
         }
 
     }
