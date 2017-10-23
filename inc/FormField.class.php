@@ -51,6 +51,11 @@ class FormField {
             die("Konfigurationsfehler: dataType");
         }
 
+        // value
+        if (array_key_exists('value', $conf) && $conf['value'] !== ''){
+            $this->value = $conf['value'];
+        }
+
         // minlen
         if (array_key_exists('minLen', $conf) && $conf['minLen'] !== ''){
             $this->minLen = $conf['minLen'];

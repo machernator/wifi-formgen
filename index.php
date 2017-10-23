@@ -12,6 +12,8 @@
     <?php
     require_once 'inc/FormField.class.php';
     require_once 'inc/Textarea.class.php';
+    require_once 'inc/Radio.class.php';
+    require_once 'inc/Select.class.php';
     // Alle Formularfelder
     $fields = [
         "username" => [
@@ -34,7 +36,41 @@
             "type" => "password",
             "dataType" => "alnum",
             "minLen" => 8
-        ]        
+        ],
+        "erfahrenwie" => [
+            "name" => "erfahrenwie",
+            "id" => "erfahreWie",
+            "label" => "Wie haben Sie von uns erfahren?",
+            "type" => "radio",
+            "dataType" => "whitelist",
+            "value" => "tv",
+            "values" => [
+                "zeitung" => "Zeitung",
+                "onlinewerbung" => "Online Werbung",
+                "radio" => "Radio",
+                "tv" => "TV Spot",
+                "sonstige" => "Sonstige"
+            ]
+        ],
+        "titel" => [
+            "name" => "titel",
+            "id" => "titel",
+            "label" => "Titel",
+            "type" => "select",
+            "dataType" => "whitelist",
+            "value" => ["dr", "master"],
+            "values" => [
+                "mag" => "Magister",
+                "master" => "Master",
+                "bachelor" => "Bachelor",
+                "dr" => "Dr."
+            ],
+            "tagAttributes" => [
+                "multiple" => true
+            ]
+
+        ]
+
     ];
 
     /* Ziel:
@@ -48,7 +84,15 @@
         echo $userName->render();
 
         $password = new Textarea($fields['password']);
-        $password->render();
+        echo $password->render();
+
+        $titel = new Select($fields['titel']);
+        echo $titel->render();
+
+        $radios = new Radio($fields['erfahrenwie']);
+        echo '<div id="' . $fields['erfahrenwie']['id'] . '">'; 
+        echo $radios->render();
+        echo '</div>';
         /* echo $password->renderLabel();
         echo '<p>blabla</p>';
         echo $password->renderField(); */
