@@ -1,4 +1,6 @@
 <?php
+namespace FormLib;
+
 class Radio extends FormField {
     private $values = [];
 

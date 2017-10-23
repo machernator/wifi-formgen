@@ -10,10 +10,8 @@
 <body>
     <h1>Form Generator</h1>
     <?php
-   /*  require_once 'inc/FormField.class.php';
-    require_once 'inc/Textarea.class.php';
-    require_once 'inc/Radio.class.php';
-    require_once 'inc/Select.class.php'; */
+    require_once 'inc/FormField.class.php';
+    require_once 'inc/init.inc.php';
 
     // Alle Formularfelder
     $fields = [
@@ -80,16 +78,16 @@
     ?>
     <form action="" method="post" class="pure-form pure-form-stacked">
         <?php
-        $userName = new FormField($fields['username']);
+        $userName = new \FormLib\FormField($fields['username']);
         echo $userName->render();
 
-        $password = new Textarea($fields['password']);
+        $password = new \FormLib\Textarea($fields['password']);
         echo $password->render();
 
-        $titel = new Select($fields['titel']);
+        $titel = new \FormLib\Select($fields['titel']);
         echo $titel->render();
 
-        $radios = new Radio($fields['erfahrenwie']);
+        $radios = new \FormLib\Radio($fields['erfahrenwie']);
         echo '<div id="' . $fields['erfahrenwie']['id'] . '">'; 
         echo $radios->render();
         echo '</div>';

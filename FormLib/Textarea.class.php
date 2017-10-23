@@ -1,4 +1,6 @@
 <?php
+namespace FormLib;
+
 class Textarea extends FormField {
     /**
      * Textarea wird ausgegeben

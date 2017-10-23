@@ -1,4 +1,5 @@
 <?php
+namespace FormLib;
 
 class CheckBox extends FormField {
     private $checked ='';

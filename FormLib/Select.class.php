@@ -1,4 +1,6 @@
 <?php
+namespace FormLib;
+
 class Select extends FormField {
     private $values = [];
 

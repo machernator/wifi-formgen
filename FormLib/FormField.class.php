@@ -1,4 +1,6 @@
 <?php
+namespace FormLib;
+
 class FormField {
     protected $id = '';
     protected $name = '';
@@ -7,6 +9,7 @@ class FormField {
     protected $dataType = '';
     protected $minLen = 0;
     protected $maxLen = 0;
+    protected $error = '';
     protected $tagAttributes = [];
 
     public function __construct(array $conf) {
@@ -111,7 +114,8 @@ class FormField {
     }
 
     public function renderError() : string {
-        return '';
+        // TODO: Eltern Element bestimmen
+        return $this->error;
     }
 
     protected function renderTagAttributes() : string {
