@@ -26,14 +26,12 @@
 <body>
     <div class="wrapper">
         <h1>Test des Formgenerators</h1>
-        <pre>
+        
         <?php
         include 'inc/init.inc.php';
         $myForm = new FormLib\Form($formConf);
-        print_r($myForm);
-
+        echo $myForm->render();
         ?>
-        </pre>
     </div>
     
 </body>

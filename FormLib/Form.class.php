@@ -81,36 +81,131 @@ class Form {
                 default:
                     $this->fields[ $value['name'] ] = new \FormLib\FormField($value);
             }
-        }
 
+        }
     }
 
+    /* public function render() : string {
+        // Form Öffnen-Tag erstellen
+        $out = '<form method="' .
+                $this->method .
+                '" action="' .
+                $this->action .
+                '" id="' .
+                $this->id .
+                '"' .
+                $this->renderTagAttributes() .
+                '>';
+
+        // Felder erstellen
+        foreach($this->fields as $field) {
+            $out .= $field->render();
+        }
+
+        // Form Tag schließen
+        $out .= '</form>';
+        return $out;
+    } */
+
     /**
-     * Undocumented function
+     * Formular inkl.   Feldern ausgeben
      *
      * @return string
      */
     public function render() : string {
+        $out = $this->renderFormOpen();
+        $out .= $this->renderFields();
+        $out .= $this->renderFormClose();
 
+        return $out;
     }
 
     /**
-     * Undocumented function
+     * Opening form Tag
+     *
+     * @return string
+     */
+    public function renderFormOpen() : string {
+        $out = '<form' .
+                ' method="' . 
+                $this->method . 
+                '" ' .
+                ' action="' . 
+                $this->action .
+                '"';
+               
+                if ($this->id !== ''){
+                    ' id="' . 
+                    $this->id . 
+                    '" ';
+                }
+               
+                if ($this->encType !== '') {
+                    $out .= ' enctype="' .
+                            $this->encType .
+                            '"';
+                }
+
+                $out .= $this->renderTagAttributes() .
+                '>';
+        return $out;
+    }
+    
+    /**
+     * Closing form Tag
+     *
+     * @return string
+     */
+    public function renderFormClose() : string {
+        return '</form>';
+    }
+
+    /**
+     * Alle Formularfelder rendern
+     *
+     * @return string
+     */
+    private function renderFields() : string {
+        $out = '';
+        foreach ($this->fields as $field) {
+            $out .= $field->render();
+        }
+
+        return $out;
+    }
+
+    /**
+     * Rendering eines Feldes anhand seines Namens
      *
      * @param string $fieldName
      * @return string
      */
     public function renderField(string $fieldName) : string {
-
+        if (!array_key_exists($fieldName, $this->fields)) return '';
+        return $this->fields[$fieldName]->render();
     }
 
     /**
-     * Undocumented function
+     * Rückgabe eines Feldes anhand seines Namens
      *
      * @param string $fieldName
      * @return FormField
      */
     public function getField(string $fieldName) : FormField {
+        if (!array_key_exists($fieldName, $this->fields)) return '';
+        return $this->fields[$fieldName];
+    }
 
+    private function renderTagAttributes() : string {
+        $out = '';
+        foreach ($this->tagAttributes as $key => $value) {
+            $out .= ' ' .
+                    $key .
+                    '="' .
+                    $value .
+                    '"';
+        }
+        
+        return $out;
     }
 }

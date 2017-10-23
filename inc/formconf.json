@@ -3,6 +3,9 @@
     "action": "",
     "id": "testForm",
     "encType": "multipart/form-data",
+    "tagAttributes": {
+        "class": "pure-form pure-form-stacked"
+    },
     "fields": [
         {
             "name": "vorname",
