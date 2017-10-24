@@ -210,6 +210,42 @@ class Form {
      * @return bool
      */
     public function isValid(array $data) : bool {
+        // GUMP initialisieren
+        $gump = new GUMP();
+        $rules = $this->createValidationArray();
+        $gump->validation_rules($rules);
 
+        $filters = $this->createFiltersArray();
+        $gump->filter_rules($filters);
+
+        // Validierung
+        $validated_data = $gump->run($data);
+
+        if ($validated_data === false) {
+            // Fehler traten auf
+            $formErrors = $gump->get_errors_array();
+            print_r($formErrors);
+            return false;
+        }
+        else {
+            return true;
+        }
+
+
+    }
+
+    private function createValidationArray() : array {
+        $rules = [];
+
+        // Regeln aus jedem einzelnen Feld auslesen
+        foreach($this->fields as $fieldName => $field) {
+            $rules[$fieldName] = $field->getValidationRules();
+        }
+
+        return $rules;
+    }
+
+    private function createFiltersArray() : array {
+        return [];
     }
 }

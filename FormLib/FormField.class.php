@@ -13,6 +13,9 @@ class FormField {
     protected $value = '';
     protected $tagAttributes = [];
 
+    protected $validationRules = '';
+    protected $filters = '';
+
     public function __construct(array $conf, $error='') {
         //// Pflichtfelder
         // id
@@ -82,6 +85,24 @@ class FormField {
         else {
             $this->error = $error;
         }
+
+        // validationRules 
+        if (array_key_exists('validationRules', $conf) && $conf['validationRules'] !== '') {
+            $this->validationRules = $conf['validationRules'];
+        }
+
+        // filters 
+        if (array_key_exists('filters', $conf) && $conf['filters'] !== '') {
+            $this->filters = $conf['filters'];
+        }
+    }
+
+    public function getValidationRules() : string {
+        return $this->validationRules;
+    }
+
+    public function getFilters() : string {
+        return $this->filters;
     }
 
     /**
