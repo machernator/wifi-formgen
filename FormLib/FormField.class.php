@@ -153,7 +153,11 @@ class FormField {
             'id="' . 
             $this->id .
             '"';
-        // TODO: value 
+
+            if ($this->value !== '') {
+                $out .= ' value="' . $this->value . '"';
+            }
+        
         
         // tagAttributes
         $out .= $this->renderTagAttributes(); 
@@ -171,7 +175,7 @@ class FormField {
         $this->error = $error;
     }
 
-    public function setValue(string $value) {
+    public function setValue($value) {
         $this->value = $value;
     }
 

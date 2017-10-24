@@ -61,6 +61,14 @@
             },
             "validationRules": "required|exact_len,1|contains,m w",
             "filters": "trim"
-        } 
+        },
+        {
+            "name": "senden",
+            "type": "submit",
+            "label": "Senden",
+            "dataType": "text",
+            "value": "Senden",
+            "id": "sendForm"
+        }
     ]
 }

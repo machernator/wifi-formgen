@@ -83,6 +83,9 @@ class Form {
                 case 'textarea':
                     $this->fields[ $field['name'] ] = new \FormLib\Textarea($field);
                     break;
+                case 'submit':
+                    $this->fields[ $field['name'] ] = new \FormLib\Submit($field);
+                    break;
                 // wenn keiner der vorigen Fälle zutrifft (else)
                 default:
                     $this->fields[ $field['name'] ] = new \FormLib\FormField($field);
@@ -207,11 +210,11 @@ class Form {
      * Im Fehlerfall wird den FormFields die Fehlermeldung bekannt gegeben.
      * 
      * @param array $data
-     * @return bool
+     * @return mixed    false oder Array mit gefilterten Daten
      */
-    public function isValid(array $data) : bool {
-        // GUMP initialisieren
-        $gump = new GUMP();
+    public function isValid(array $data) {
+        // GUMP initialisieren, Klasse aus globalem Namespace
+        $gump = new \GUMP();
         $rules = $this->createValidationArray();
         $gump->validation_rules($rules);
 
@@ -224,14 +227,24 @@ class Form {
         if ($validated_data === false) {
             // Fehler traten auf
             $formErrors = $gump->get_errors_array();
-            print_r($formErrors);
+
+            foreach($this->fields as $fieldName => $field) {
+                // Trat für das aktuelle Feld ein Fehler auf?
+                if (array_key_exists($fieldName, $formErrors)) {
+                    // Fehler in die Felder eintragen
+                    $this->fields[$fieldName]->setError($formErrors[$fieldName]);  
+                }
+                // Bereits gesendeten Value wieder eintragen
+                if (array_key_exists($fieldName, $data)) {
+                    $field->setValue($data[$fieldName]);
+                }
+            }
+
             return false;
         }
         else {
-            return true;
+            return $validated_data;
         }
-
-
     }
 
     private function createValidationArray() : array {
@@ -246,6 +259,13 @@ class Form {
     }
 
     private function createFiltersArray() : array {
-        return [];
+        $filters = [];
+        
+        // Filter aus jedem einzelnen Feld auslesen
+        foreach($this->fields as $fieldName => $field) {
+            $filters[$fieldName] = $field->getFilters();
+        }
+
+        return $filters;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-include_once '../GUMP/gump.class.php';
+require_once '../GUMP/gump.class.php';
 
 function formLibAutoLoad ($className) {
     require_once $className . '.class.php';

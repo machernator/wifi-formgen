@@ -33,6 +33,13 @@
         <?php
         include 'inc/init.inc.php';
         $myForm = new FormLib\Form($formConf);
+        $dummyData = [
+            'anrede' => 'm',
+            'vorname' => 'Thomas',
+            'nachname' => 122321
+        ];
+
+        $myForm->isValid($dummyData);
         echo $myForm->render();
         ?>
     </div>
