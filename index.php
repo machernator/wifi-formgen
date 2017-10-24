@@ -90,6 +90,9 @@
         echo $password->render();
 
         $titel = new \FormLib\Select($fields['titel']);
+        // Feld validieren ... 
+        $titelError = 'Ui, falsch!';
+        $titel->setError($titelError);
         echo $titel->render();
 
         $radios = new \FormLib\Radio($fields['erfahrenwie']);

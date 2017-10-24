@@ -10,3 +10,7 @@ spl_autoload_register('formLibAutoLoad');
 $jsonConf = file_get_contents('inc/formconf.json');
 // zweiter Parameter auf true, wir erhalten assoziatives Array
 $formConf = json_decode($jsonConf, true);
+
+echo "<pre>";
+print_r($formConf);
+echo "</pre>";

@@ -21,6 +21,9 @@
         border: 1px solid #CCC;
         padding: 1em 1em 3em 1em;
     }
+    .form-error {
+        color: #900;
+    }
     </style>
 </head>
 <body>

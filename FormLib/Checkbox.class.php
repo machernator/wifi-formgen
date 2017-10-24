@@ -2,26 +2,20 @@
 namespace FormLib;
 
 class CheckBox extends FormField {
-    private $checked ='';
+    private $checked = '';
 
     public function __construct (array $conf) {
         parent::__construct($conf);
 
-        if (array_key_exists('checked',$conf) && $conf['checked'] === 'true') {
+        if (array_key_exists('checked',$conf) && $conf['checked'] === true) {
             $this->checked=' checked';
-        }
-        if (array_key_exists('value',$conf) && $conf['value'] !== '') {
-            $this->value=$conf['value'];
         }
     }
     /* Die Funktionen überschreiben die Funktionen aus der ElternKlasse */
     public function render () {
         $out = '';
-        //Label erstellen
+        //Label erstellen, hier inklusive Field
         $out .= $this->renderLabel();
-        // Checkbox erstellen
-/*         $out .= $this->renderField(); */
-        // Error Massage
         $out .= $this->renderError();
         return $out;
     }

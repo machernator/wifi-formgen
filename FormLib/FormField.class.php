@@ -7,13 +7,13 @@ class FormField {
     protected $label = '';
     protected $type = '';
     protected $dataType = '';
-    protected $minLen = 0;
-    protected $maxLen = 0;
+    
     protected $error = '';
+    protected $errorClass = '';
     protected $value = '';
     protected $tagAttributes = [];
 
-    public function __construct(array $conf) {
+    public function __construct(array $conf, $error='') {
         //// Pflichtfelder
         // id
         if (array_key_exists('id', $conf) && $conf['id'] !== '') {
@@ -74,8 +74,21 @@ class FormField {
         if (array_key_exists('tagAttributes', $conf) && is_array($conf['tagAttributes'])){
             $this->tagAttributes = $conf['tagAttributes'];
         }
+
+        // error 
+        if (array_key_exists('error', $conf)){
+            $this->error = $conf['error'];
+        }
+        else {
+            $this->error = $error;
+        }
     }
 
+    /**
+     * Ausgabe des Input Feldes in HTML
+     *
+     * @return string
+     */
     public function render() : string {
         $out = '';
         // Label
@@ -88,6 +101,11 @@ class FormField {
         return $out;
     }
 
+    /**
+     * Ausgabe des label Tags
+     *
+     * @return string
+     */
     public function renderLabel() : string {
         $out = '';
         $out .= '<label for="' . 
@@ -98,6 +116,11 @@ class FormField {
         return $out;
     }
 
+    /**
+     * Ausgabe des Input Tags
+     *
+     * @return string
+     */
     public function renderField() : string {
         $out = '';
         $out .= '<input type="' .
@@ -105,6 +128,9 @@ class FormField {
             '" ' . 
             'name="' . 
             $this->name .
+            '" ' .
+            'id="' . 
+            $this->id .
             '"';
         // TODO: value 
         
@@ -114,11 +140,38 @@ class FormField {
         return $out;
     }
 
-    public function renderError() : string {
-        // TODO: Eltern Element bestimmen
-        return $this->error;
+    /**
+     * Fehlermeldung auch nach dem Konstruktor setzen können
+     *
+     * @param string $error
+     * @return void
+     */
+    public function setError(string $error) {
+        $this->error = $error;
     }
 
+    public function setValue(string $value) {
+        $this->value = $value;
+    }
+
+    /**
+     * Fehlermeldung für unser Feld zurückgeben
+     *
+     * @return string
+     */
+    public function renderError() : string {
+        if ($this->error !== ''){
+            return '<div class="' . $this->errorClass . '">' . $this->error . '</div>';
+        }
+
+        return '';
+    }
+
+    /**
+     * Erzeugt String mit beliebigen weiteren Attributen des Input Tags.
+     *
+     * @return string
+     */
     protected function renderTagAttributes() : string {
         $out = '';
         foreach ($this->tagAttributes as $key => $value) {

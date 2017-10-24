@@ -3,16 +3,17 @@ namespace FormLib;
 
 /**
  * Rendering und Validierung aller zugehörigen Formularfelder
+ * Abhängig von GUMP Validation Library
  */
 class Form {
     private $method = '';
     private $action = '';
     private $encType = '';
     private $id = '';
+    private $fieldOrder = [];
     private $tagAttributes = [];
     private $fields = []; // FormField Objekte
 
- 
     /**
      * Konstruktor
      *
@@ -40,6 +41,11 @@ class Form {
             $this->tagAttributes = $conf['tagAttributes'];
         }
 
+        // fieldOrder
+        if (array_key_exists('fieldOrder', $conf) && is_array($conf['fieldOrder'])){
+            $this->fieldOrder = $conf['fieldOrder'];
+        }
+
         // fields
         if (array_key_exists('fields', $conf) &&
             is_array($conf['fields']) &&
@@ -57,55 +63,32 @@ class Form {
      */
     private function createFields(array $fields) {
         // Schleife über alle Felder
-        foreach ($fields as $value) {
+        foreach ($fields as $field) {
             /* 
                 Alternative zu if/else if, wenn die Anzahl der möglichen
                 Werte im Vorhinein bekannt ist.
             */
-            switch($value['type']){
-                // wenn $value['type'] select ist
+            switch($field['type']){
+                // wenn $field['type'] select ist
                 case 'select':
-                    $this->fields[ $value['name'] ] = new \FormLib\Select($value);
+                    $this->fields[ $field['name'] ] = new \FormLib\Select($field);
                     // beende switch
                     break;
                 case 'checkbox':
-                    $this->fields[ $value['name'] ] = new \FormLib\Checkbox($value);
+                    $this->fields[ $field['name'] ] = new \FormLib\Checkbox($field);
                     break;
                 case 'radio':
-                    $this->fields[ $value['name'] ] = new \FormLib\Radio($value);
+                    $this->fields[ $field['name'] ] = new \FormLib\Radio($field);
                     break;
                 case 'textarea':
-                    $this->fields[ $value['name'] ] = new \FormLib\Textarea($value);
+                    $this->fields[ $field['name'] ] = new \FormLib\Textarea($field);
                     break;
                 // wenn keiner der vorigen Fälle zutrifft (else)
                 default:
-                    $this->fields[ $value['name'] ] = new \FormLib\FormField($value);
+                    $this->fields[ $field['name'] ] = new \FormLib\FormField($field);
             }
-
         }
     }
-
-    /* public function render() : string {
-        // Form Öffnen-Tag erstellen
-        $out = '<form method="' .
-                $this->method .
-                '" action="' .
-                $this->action .
-                '" id="' .
-                $this->id .
-                '"' .
-                $this->renderTagAttributes() .
-                '>';
-
-        // Felder erstellen
-        foreach($this->fields as $field) {
-            $out .= $field->render();
-        }
-
-        // Form Tag schließen
-        $out .= '</form>';
-        return $out;
-    } */
 
     /**
      * Formular inkl.   Feldern ausgeben
@@ -167,8 +150,18 @@ class Form {
      */
     private function renderFields() : string {
         $out = '';
-        foreach ($this->fields as $field) {
-            $out .= $field->render();
+        // Prüfen ob $this->fieldOrder mit genauso vielen Feldern 
+        // wie $this->fields befüllt ist.
+        if (count($this->fieldOrder) === count($this->fields)) {
+            foreach($this->fieldOrder as $fieldName) {
+                $out .= $this->fields[$fieldName]->render();
+            }
+        }
+        else {
+            // Reihenfolge aus der JSON Datei
+            foreach ($this->fields as $field) {
+                $out .= $field->render();
+            }
         }
 
         return $out;
@@ -207,5 +200,16 @@ class Form {
         }
         
         return $out;
+    }
+
+    /**
+     * Validiert die Daten aus $data. Diese haben als Key die Feldnamen. 
+     * Im Fehlerfall wird den FormFields die Fehlermeldung bekannt gegeben.
+     * 
+     * @param array $data
+     * @return bool
+     */
+    public function isValid(array $data) : bool {
+
     }
 }

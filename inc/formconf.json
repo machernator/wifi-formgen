@@ -6,20 +6,48 @@
     "tagAttributes": {
         "class": "pure-form pure-form-stacked"
     },
+    "fieldSets": [
+        {
+            "caption": "Stammdaten",
+            "tagAttributes": {
+                "class": "two-fields"
+            },
+            "fields": [
+                "vorname",
+                "nachname"
+            ]
+        },
+        {
+            "caption": "Wie haben Sie von uns erfahren",
+            "fields": [
+                "wohererfahren",
+                "newsletter"
+            ]
+        }
+    ],
+    "fieldOrder": [
+        "anrede",
+        "nachname",
+        "vorname"
+    ],
     "fields": [
         {
             "name": "vorname",
             "type": "text",
             "label": "Vorname",
             "dataType": "name",
-            "id": "vorName"
+            "id": "vorName",
+            "validationRules": "required|valid_name|min_len,3",
+            "filters": "trim|sanitize_string"
         },
         {
             "name": "nachname",
             "type": "text",
             "label": "Nachname",
             "dataType": "name",
-            "id": "nachName"
+            "id": "nachName",
+            "validationRules": "required|valid_name|min_len,3",
+            "filters": "trim|sanitize_string"
         },
         {
             "name": "anrede",
@@ -30,7 +58,9 @@
             "values": {
                 "w": "Frau",
                 "m": "Herr"
-            }
+            },
+            "validationRules": "required|exact_len,1|contains,m w",
+            "filters": "trim"
         } 
     ]
 }
