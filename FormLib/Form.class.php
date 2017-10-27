@@ -47,6 +47,10 @@ class Form {
             $this->fieldOrder = $conf['fieldOrder'];
         }
 
+        if (array_key_exists('formFieldErrorClass', $conf)) {
+            $this->formFieldErrorClass = $conf['formFieldErrorClass'];
+        }
+
         // fields
         if (array_key_exists('fields', $conf) &&
             is_array($conf['fields']) &&
@@ -65,11 +69,6 @@ class Form {
     private function createFields(array $fields) {
         // Schleife über alle Felder
         foreach ($fields as $field) {
-            // Prüfen, ob formFieldErrorClass gesetzt ist, wenn ja diese in die config des Feldes schreiben.
-            if ($this->formFieldErrorClass !== '' && $field->errorClass === '') {
-                $field->setErrorClass($this->formFieldErrorClass);
-            }
-
             switch($field['type']){
                 // wenn $field['type'] select ist
                 case 'select':
@@ -91,6 +90,11 @@ class Form {
                 // wenn keiner der vorigen Fälle zutrifft (else)
                 default:
                     $this->fields[ $field['name'] ] = new \FormLib\FormField($field);
+            }
+
+            // Prüfen, ob formFieldErrorClass gesetzt ist, wenn ja diese in die config des Feldes schreiben, falls dieses keine eigene gesetzt hat
+            if ($this->formFieldErrorClass !== '' && $this->fields[ $field['name'] ]->getErrorClass() === '') {
+                    $this->fields[ $field['name'] ]->setErrorClass($this->formFieldErrorClass);
             }
         }
     }

@@ -94,10 +94,20 @@ class FormField {
         }
     }
 
+    /**
+     * Public Zugriff auf validationRules
+     *
+     * @return string
+     */
     public function getValidationRules() : string {
         return $this->validationRules;
     }
 
+    /**
+     * Public Zugriff auf Filters
+     *
+     * @return string
+     */
     public function getFilters() : string {
         return $this->filters;
     }
@@ -173,10 +183,29 @@ class FormField {
     }
 
     /**
-     * [setValue description]
-     * @param [type] $value [description]
+     * Public Setter für errorClass
+     *
+     * @param string $errorClass
+     * @return void
      */
-    public function setValue($value) {
+    public function setErrorClass(string $errorClass) {
+        $this->errorClass = $errorClass;
+    }
+    
+    /**
+     * Public getter für errorClass
+     *
+     * @return string
+     */
+    public function getErrorClass() : string {
+        return $this->errorClass;
+    }
+
+    /**
+     * Public Setter auf value
+     * @param string $value 
+     */
+    public function setValue(string $value) {
         $this->value = $value;
     }
 
@@ -187,7 +216,6 @@ class FormField {
      */
     public function renderError() : string {
         $errorClass = '';
-
         if ($this->errorClass !== '') {
             $errorClass = ' class="' . $this->errorClass . '"';
         }

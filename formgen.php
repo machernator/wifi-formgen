@@ -38,13 +38,9 @@
         // zweiter Parameter auf true, wir erhalten assoziatives Array
         $formConf = json_decode($jsonConf, true);
 
-        print_r($formConf);
-
         $myForm = new FormLib\Form($formConf);
 
         if (count($_POST) > 0) {
-            print_r($_POST);
-
             if (!$myForm->isValid($_POST)) {
                 echo $myForm->render();
             }

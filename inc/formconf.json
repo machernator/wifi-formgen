@@ -3,6 +3,7 @@
     "action": "",
     "id": "testForm",
     "encType": "multipart/form-data",
+    "formFieldErrorClass": "form-error",
     "tagAttributes": {
         "class": "pure-form pure-form-stacked"
     },

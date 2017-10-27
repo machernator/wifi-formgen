@@ -32,8 +32,4 @@ class Submit extends FormField {
         $out .= '>';
         return $out;
     }
-
-    public function setValue($value) {
-        return;
-    }
 }

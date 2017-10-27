@@ -31,7 +31,6 @@ class Radio extends FormField {
                     $value . '"';
                     // Vorausgewählt, wenn aktueller Wert dem in der
                     // Konfiguration entspricht
-                        echo $this->value;
                     if ($value === $this->value) {
                         $out .= ' checked';
                     }
