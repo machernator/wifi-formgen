@@ -7,7 +7,7 @@ class FormField {
     protected $label = '';
     protected $type = '';
     protected $dataType = '';
-    
+
     protected $error = '';
     protected $errorClass = '';
     protected $value = '';
@@ -25,7 +25,7 @@ class FormField {
         else {
             die("Konfigurationsfehler: id");
         }
-        
+
         // name
         if (array_key_exists('name', $conf) && $conf['name'] !== '') {
             $this->name = $conf['name'];
@@ -49,7 +49,7 @@ class FormField {
         else {
             die("Konfigurationsfehler: type");
         }
-        
+
         // dataType
         if (array_key_exists('dataType', $conf) && $conf['dataType'] !== '') {
             $this->dataType = $conf['dataType'];
@@ -78,7 +78,7 @@ class FormField {
             $this->tagAttributes = $conf['tagAttributes'];
         }
 
-        // error 
+        // error
         if (array_key_exists('error', $conf)){
             $this->error = $conf['error'];
         }
@@ -86,12 +86,12 @@ class FormField {
             $this->error = $error;
         }
 
-        // validationRules 
+        // validationRules
         if (array_key_exists('validationRules', $conf) && $conf['validationRules'] !== '') {
             $this->validationRules = $conf['validationRules'];
         }
 
-        // filters 
+        // filters
         if (array_key_exists('filters', $conf) && $conf['filters'] !== '') {
             $this->filters = $conf['filters'];
         }
@@ -115,10 +115,10 @@ class FormField {
         // Label
         $out .= $this->renderLabel();
         // Input Tag
-        $out .= $this->renderField();        
+        $out .= $this->renderField();
         // Error Message
-        $out .= $this->renderError();        
-        
+        $out .= $this->renderError();
+
         return $out;
     }
 
@@ -129,8 +129,8 @@ class FormField {
      */
     public function renderLabel() : string {
         $out = '';
-        $out .= '<label for="' . 
-            $this->id . 
+        $out .= '<label for="' .
+            $this->id .
             '">' .
             $this->label .
             '</label>';
@@ -145,22 +145,22 @@ class FormField {
     public function renderField() : string {
         $out = '';
         $out .= '<input type="' .
-            $this->type . 
-            '" ' . 
-            'name="' . 
+            $this->type .
+            '" ' .
+            'name="' .
             $this->name .
             '" ' .
-            'id="' . 
+            'id="' .
             $this->id .
             '"';
 
             if ($this->value !== '') {
                 $out .= ' value="' . $this->value . '"';
             }
-        
-        
+
+
         // tagAttributes
-        $out .= $this->renderTagAttributes(); 
+        $out .= $this->renderTagAttributes();
         $out .= '>';
         return $out;
     }
@@ -185,8 +185,15 @@ class FormField {
      * @return string
      */
     public function renderError() : string {
+        $errorClass = '';
+
+        if ($this->errorClass !== '') {
+            $errorClass = ' class="' . $this->errorClass . '"';
+        }
+
         if ($this->error !== ''){
-            return '<div class="' . $this->errorClass . '">' . $this->error . '</div>';
+
+            return '<div' . $errorClass . '>' . $this->error . '</div>';
         }
 
         return '';
@@ -206,7 +213,7 @@ class FormField {
                     $value .
                     '"';
         }
-        
+
         return $out;
     }
 }
