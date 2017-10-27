@@ -51,11 +51,11 @@
         },
         {
             "name": "newsLetter",
-            "type": "text",
+            "type": "checkbox",
             "label": "Newsletter bestellen",
             "dataType": "name",
             "id": "nachName",
-            "value": 1
+            "value": 1,
             "validationRules": "required|contains,1",
             "filters": "trim|sanitize_string"
         },

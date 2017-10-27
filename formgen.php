@@ -37,6 +37,7 @@
         $jsonConf = file_get_contents(PROJECT_ROOT . 'inc/formconf.json');
         // zweiter Parameter auf true, wir erhalten assoziatives Array
         $formConf = json_decode($jsonConf, true);
+
         print_r($formConf);
 
         $myForm = new FormLib\Form($formConf);

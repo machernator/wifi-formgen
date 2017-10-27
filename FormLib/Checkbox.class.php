@@ -11,32 +11,30 @@ class CheckBox extends FormField {
             $this->checked=' checked';
         }
     }
-    /* Die Funktionen überschreiben die Funktionen aus der ElternKlasse */
-    public function render () {
+    
+    /**
+     * Überschriebene render Methode
+     *
+     * @return string
+     */
+    public function render () : string{
         $out = '';
-        //Label erstellen, hier inklusive Field
-        $out .= $this->renderLabel();
+        $out .= $this->renderField();
         $out .= $this->renderError();
         return $out;
     }
 
-    public function renderLabel () {
-        $out = '';
-        //Label erstellen
-        $out.= '<label for="' . 
-            $this->id .
-            '">' . 
-            $this->renderField() .            
-            ' ' . 
-            $this->label .
-            '</label>';
-        return $out;
-    }
-    public function renderField () {
-        
+    /**
+     * Überschriebene renderField Methode. Label Tag wird um input geschrieben.
+     *
+     * @return string
+     */
+    public function renderField () : string {
         // Input Tag
-        $out = '';
-        $out.= '<input type="' . 
+        $out = '<label for="' . 
+        $this->id .
+        '">' . 
+        '<input type="' . 
             $this->type .
             '" ' .
             'id="' .
@@ -49,7 +47,9 @@ class CheckBox extends FormField {
             $this->value .
             '"' .
             $this->checked .
-            '>';
+            '> ' . 
+            $this->label .
+            '</label>';
         return $out;
     }
 }

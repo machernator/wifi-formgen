@@ -1,6 +1,6 @@
 <?php
 define ('PROJECT_ROOT', __DIR__ . '/');
-echo PROJECT_ROOT;
+
 require_once 'GUMP/gump.class.php';
 
 function formLibAutoLoad ($className) {
