@@ -64,7 +64,7 @@ class Form {
     private function createFields(array $fields) {
         // Schleife über alle Felder
         foreach ($fields as $field) {
-            /* 
+            /*
                 Alternative zu if/else if, wenn die Anzahl der möglichen
                 Werte im Vorhinein bekannt ist.
             */
@@ -113,19 +113,19 @@ class Form {
      */
     public function renderFormOpen() : string {
         $out = '<form' .
-                ' method="' . 
-                $this->method . 
+                ' method="' .
+                $this->method .
                 '" ' .
-                ' action="' . 
+                ' action="' .
                 $this->action .
                 '"';
-               
+
                 if ($this->id !== ''){
-                    ' id="' . 
-                    $this->id . 
+                    ' id="' .
+                    $this->id .
                     '" ';
                 }
-               
+
                 if ($this->encType !== '') {
                     $out .= ' enctype="' .
                             $this->encType .
@@ -136,7 +136,7 @@ class Form {
                 '>';
         return $out;
     }
-    
+
     /**
      * Closing form Tag
      *
@@ -153,7 +153,7 @@ class Form {
      */
     private function renderFields() : string {
         $out = '';
-        // Prüfen ob $this->fieldOrder mit genauso vielen Feldern 
+        // Prüfen ob $this->fieldOrder mit genauso vielen Feldern
         // wie $this->fields befüllt ist.
         if (count($this->fieldOrder) === count($this->fields)) {
             foreach($this->fieldOrder as $fieldName) {
@@ -192,6 +192,10 @@ class Form {
         return $this->fields[$fieldName];
     }
 
+    /**
+     * Weitere HTML Attribute des Tags erstellen
+     * @return [type] [description]
+     */
     private function renderTagAttributes() : string {
         $out = '';
         foreach ($this->tagAttributes as $key => $value) {
@@ -201,14 +205,14 @@ class Form {
                     $value .
                     '"';
         }
-        
+
         return $out;
     }
 
     /**
-     * Validiert die Daten aus $data. Diese haben als Key die Feldnamen. 
+     * Validiert die Daten aus $data. Diese haben als Key die Feldnamen.
      * Im Fehlerfall wird den FormFields die Fehlermeldung bekannt gegeben.
-     * 
+     *
      * @param array $data
      * @return mixed    false oder Array mit gefilterten Daten
      */
@@ -224,15 +228,15 @@ class Form {
         // Validierung
         $validated_data = $gump->run($data);
 
+        // Fehler traten auf
         if ($validated_data === false) {
-            // Fehler traten auf
             $formErrors = $gump->get_errors_array();
 
             foreach($this->fields as $fieldName => $field) {
                 // Trat für das aktuelle Feld ein Fehler auf?
                 if (array_key_exists($fieldName, $formErrors)) {
                     // Fehler in die Felder eintragen
-                    $this->fields[$fieldName]->setError($formErrors[$fieldName]);  
+                    $this->fields[$fieldName]->setError($formErrors[$fieldName]);
                 }
                 // Bereits gesendeten Value wieder eintragen
                 if (array_key_exists($fieldName, $data)) {
@@ -247,6 +251,11 @@ class Form {
         }
     }
 
+    /**
+     * Erstellt Array mit Validierungen für GUMP. Es werden die Regeln
+     * jedes einzelnen Feldes ausgelesen und in einem Array zusammengefasst.
+     * @return array
+     */
     private function createValidationArray() : array {
         $rules = [];
 
@@ -258,9 +267,14 @@ class Form {
         return $rules;
     }
 
+    /**
+     * Erstellt Array mit Filtern für GUMP. Es werden die Filter
+     * jedes einzelnen Feldes ausgelesen und in einem Array zusammengefasst.
+     * @return array
+     */
     private function createFiltersArray() : array {
         $filters = [];
-        
+
         // Filter aus jedem einzelnen Feld auslesen
         foreach($this->fields as $fieldName => $field) {
             $filters[$fieldName] = $field->getFilters();

@@ -7,22 +7,17 @@ class Radio extends FormField {
     public function __construct ($conf) {
         parent::__construct($conf);
 
-        if (array_key_exists('values', $conf) && 
-            is_array($conf['values']) && 
+        if (array_key_exists('values', $conf) &&
+            is_array($conf['values']) &&
             count($conf['values']) > 0) {
             $this->values = $conf['values'];
         }
     }
 
-    public function render() : string {
-        $out = '';
-        $out .= $this->renderLabel();
-        $out .= $this->renderField(); 
-        $out .= $this->renderError();
-
-        return $out;
-    }
-
+    /**
+     * Die Radio Buttons werden mit Label umschlossen erstellt.
+     * @return string
+     */
     public function renderField() : string {
         $out = '';
         foreach ($this->values as $value => $text) {
@@ -36,11 +31,12 @@ class Radio extends FormField {
                     $value . '"';
                     // Vorausgewählt, wenn aktueller Wert dem in der
                     // Konfiguration entspricht
+                        echo $this->value;
                     if ($value === $this->value) {
                         $out .= ' checked';
                     }
 
-                    $out .= '>' . 
+                    $out .= '>' .
                     $text . '</label>';
         }
 

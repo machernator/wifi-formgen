@@ -35,7 +35,7 @@
         include 'inc/init.inc.php';
         $myForm = new FormLib\Form($formConf);
         $dummyData = [
-            'anrede' => 'm',
+            'anrede' => 'w',
             'vorname' => 'Thomas',
             'nachname' => 122321
         ];
@@ -44,6 +44,5 @@
         echo $myForm->render();
         ?>
     </div>
-
 </body>
 </html>
