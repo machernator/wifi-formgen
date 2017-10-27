@@ -1,8 +1,17 @@
 <?php
-require_once '../GUMP/gump.class.php';
+define ('DOCROOT', dirname(__FILE__));
+require_once 'GUMP/gump.class.php';
 
 function formLibAutoLoad ($className) {
-    require_once $className . '.class.php';
+	// Unix/Linux
+    $fileName = __DIR__ . '/../' .  str_replace('\\', '/', $className) . ".class.php";
+
+    // Windows
+    // $fileName = __DIR__ . '\\' .  $className . '.class.php';
+    //
+    if(file_exists($fileName)) {
+        require_once($fileName);
+    }
 }
 
 spl_autoload_register('formLibAutoLoad');

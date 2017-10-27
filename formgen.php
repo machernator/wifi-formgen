@@ -29,8 +29,9 @@
 <body>
     <div class="wrapper">
         <h1>Test des Formgenerators</h1>
-        
+
         <?php
+        // error_reporting(E_ALL); ini_set('display_errors', 1);
         include 'inc/init.inc.php';
         $myForm = new FormLib\Form($formConf);
         $dummyData = [
@@ -43,6 +44,6 @@
         echo $myForm->render();
         ?>
     </div>
-    
+
 </body>
 </html>
