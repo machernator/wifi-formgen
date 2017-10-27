@@ -35,7 +35,7 @@ class Radio extends FormField {
                         $out .= ' checked';
                     }
 
-                    $out .= '>' .
+                    $out .= '> ' .
                     $text . '</label>';
         }
 

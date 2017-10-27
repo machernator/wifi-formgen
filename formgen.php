@@ -44,6 +44,9 @@
             if (!$myForm->isValid($_POST)) {
                 echo $myForm->render();
             }
+            else {
+                echo 'Vielen Dank für das korrekte Ausfüllen des Formulars';
+            }
 
         }
         else {
