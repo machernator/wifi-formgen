@@ -16,7 +16,7 @@ class FormField {
     protected $validationRules = '';
     protected $filters = '';
 
-    public function __construct(array $conf, $error='') {
+    public function __construct(array $conf) {
         //// Pflichtfelder
         // id
         if (array_key_exists('id', $conf) && $conf['id'] !== '') {
@@ -81,9 +81,6 @@ class FormField {
         // error
         if (array_key_exists('error', $conf)){
             $this->error = $conf['error'];
-        }
-        else {
-            $this->error = $error;
         }
 
         // validationRules
@@ -175,6 +172,10 @@ class FormField {
         $this->error = $error;
     }
 
+    /**
+     * [setValue description]
+     * @param [type] $value [description]
+     */
     public function setValue($value) {
         $this->value = $value;
     }

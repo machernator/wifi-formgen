@@ -12,6 +12,7 @@ class Form {
     private $id = '';
     private $fieldOrder = [];
     private $tagAttributes = [];
+    private $formFieldErrorClass = ''; // CSS Klasse, die allen Feldern zugewiesen werden kann
     private $fields = []; // FormField Objekte
 
     /**
@@ -64,10 +65,11 @@ class Form {
     private function createFields(array $fields) {
         // Schleife über alle Felder
         foreach ($fields as $field) {
-            /*
-                Alternative zu if/else if, wenn die Anzahl der möglichen
-                Werte im Vorhinein bekannt ist.
-            */
+            // Prüfen, ob formFieldErrorClass gesetzt ist, wenn ja diese in die config des Feldes schreiben.
+            if ($this->formFieldErrorClass !== '' && $field->errorClass === '') {
+                $field->setErrorClass($this->formFieldErrorClass);
+            }
+
             switch($field['type']){
                 // wenn $field['type'] select ist
                 case 'select':

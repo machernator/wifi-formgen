@@ -31,17 +31,27 @@
         <h1>Test des Formgenerators</h1>
 
         <?php
-        // error_reporting(E_ALL); ini_set('display_errors', 1);
-        include 'inc/init.inc.php';
-        $myForm = new FormLib\Form($formConf);
-        $dummyData = [
-            'anrede' => 'w',
-            'vorname' => 'Thomas',
-            'nachname' => 122321
-        ];
+        include 'init.inc.php';
+        // Formular Konfiguration
+        // JSON Datei laden
+        $jsonConf = file_get_contents(PROJECT_ROOT . 'inc/formconf.json');
+        // zweiter Parameter auf true, wir erhalten assoziatives Array
+        $formConf = json_decode($jsonConf, true);
+        print_r($formConf);
 
-        $myForm->isValid($dummyData);
-        echo $myForm->render();
+        $myForm = new FormLib\Form($formConf);
+
+        if (count($_POST) > 0) {
+            print_r($_POST);
+
+            if (!$myForm->isValid($_POST)) {
+                echo $myForm->render();
+            }
+
+        }
+        else {
+            echo $myForm->render();
+        }
         ?>
     </div>
 </body>

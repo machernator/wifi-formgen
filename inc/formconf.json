@@ -50,6 +50,16 @@
             "filters": "trim|sanitize_string"
         },
         {
+            "name": "newsLetter",
+            "type": "text",
+            "label": "Newsletter bestellen",
+            "dataType": "name",
+            "id": "nachName",
+            "value": 1
+            "validationRules": "required|contains,1",
+            "filters": "trim|sanitize_string"
+        },
+        {
             "name": "anrede",
             "type": "radio",
             "label": "Anrede",
