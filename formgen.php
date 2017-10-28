@@ -24,6 +24,21 @@
     .form-error {
         color: #900;
     }
+
+    .pure-form .radio-group {
+        display: block;
+        margin-bottom: 1.5em;
+        border-radius: 3px;
+        border: 1px solid #CCC;
+        background-color: transparent;
+        padding: 1em;
+    }
+    .pure-form legend {
+        display: inline-block;
+        width: auto;
+        padding: 0 1em;
+        border: 0;
+    }
     </style>
 </head>
 <body>

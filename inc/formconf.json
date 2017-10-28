@@ -7,9 +7,9 @@
     "tagAttributes": {
         "class": "pure-form pure-form-stacked"
     },
-    "fieldSets": [
+    "fieldsets": [
         {
-            "caption": "Stammdaten",
+            "legend": "Stammdaten",
             "tagAttributes": {
                 "class": "two-fields"
             },
@@ -20,7 +20,7 @@
             ]
         },
         {
-            "caption": "Newsletter lesen",
+            "legend": "Newsletter lesen",
             "fields": [
                 "newsletter"
             ]

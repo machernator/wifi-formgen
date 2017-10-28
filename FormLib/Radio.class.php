@@ -20,16 +20,25 @@ class Radio extends FormField {
         }
     }
 
+    public function render() : string {
+        $out = '';
+        $out .= $this->renderField();
+        $out .= $this->renderError();
+        return $out;
+    }
+
     /**
      * Die Radio Buttons werden mit fieldset umschlossen erstellt.
      * @return string
      */
     public function renderField() : string {
+        // CSS Klasse
         $fsClass = '';
         if ($this->fieldsetClass !== '') {
             $fsClass = ' class="' .  $this->fieldsetClass . '"';
         }
-        $out = '<fieldset' . $fsClass  .'><caption>' . $this->label . '</caption>';
+        $out = '<fieldset' . $fsClass  .'><legend>' . $this->label . '</legend>';
+
         foreach ($this->values as $value => $text) {
             $out .= '<label>';
             $out .= '<input type="radio" name="' .

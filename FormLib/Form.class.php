@@ -11,6 +11,7 @@ class Form {
     private $encType = '';
     private $id = '';
     private $fieldOrder = [];
+    private $fieldsets = [];
     private $tagAttributes = [];
     private $formFieldErrorClass = ''; // CSS Klasse, die allen Feldern zugewiesen werden kann
     private $fields = []; // FormField Objekte
@@ -57,6 +58,13 @@ class Form {
             count($conf['fields']) > 0){
             // $this->fields mit FormField Ojbjekten befüllen
             $this->createFields($conf['fields']);
+        }
+
+        // fieldsets
+        if (array_key_exists('fieldsets', $conf) &&
+            is_array($conf['fieldsets']) &&
+            count($conf['fieldsets']) > 0){
+                $this->fieldsets = $conf['fieldsets'];
         }
     }
 
@@ -159,8 +167,11 @@ class Form {
      */
     private function renderFields() : string {
         $out = '';
-        // Prüfen ob $this->fieldOrder mit genauso vielen Feldern
-        // wie $this->fields befüllt ist.
+        
+        if (count($this->fieldsets) > 0) {
+            $out .= $this->renderFieldsets();
+        }
+        // wurde eine fieldOrder angegeben?  Es müssen alle Felder darin vorkommen
         if (count($this->fieldOrder) === count($this->fields)) {
             foreach($this->fieldOrder as $fieldName) {
                 $out .= $this->fields[$fieldName]->render();
@@ -171,6 +182,17 @@ class Form {
             foreach ($this->fields as $field) {
                 $out .= $field->render();
             }
+        }
+
+        return $out;
+    }
+
+    private function renderFieldsets() : string {
+        $out = '';
+        foreach ($this->fieldsets as $fs) {
+            echo 'jipie';
+            // fieldset Tag erstellen
+            //$out .= '<fieldset'
         }
 
         return $out;
@@ -199,10 +221,14 @@ class Form {
     }
 
     /**
-     * Weitere HTML Attribute des Tags erstellen
-     * @return [type] [description]
+     * Weitere HTML Attribute eines Tags erstellen. Optional. Per default wird 
+     * $this->tagAttributes verwendet, es kann aber ein beliebiges assoziatives
+     * array übergeben werden, z. B. für fieldsets
+     * 
+     * @param array $attr   array mit key/value pairs
+     * @return string   optinale Attribute eines HTML Tags
      */
-    private function renderTagAttributes() : string {
+    private function renderTagAttributes(array $attr=[]) : string {
         $out = '';
         foreach ($this->tagAttributes as $key => $value) {
             $out .= ' ' .
