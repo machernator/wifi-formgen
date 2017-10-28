@@ -20,6 +20,12 @@ class Radio extends FormField {
         }
     }
 
+    /**
+     * Render Methode ohne explizites Label Tag. Dieses wird für die 
+     * legend des fieldsets verwendet.
+     *
+     * @return string
+     */
     public function render() : string {
         $out = '';
         $out .= $this->renderField();

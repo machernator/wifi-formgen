@@ -51,7 +51,7 @@
             "filters": "trim|sanitize_string"
         },
         {
-            "name": "newsLetter",
+            "name": "newsletter",
             "type": "checkbox",
             "label": "Newsletter bestellen",
             "dataType": "name",

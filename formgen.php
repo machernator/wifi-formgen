@@ -25,7 +25,7 @@
         color: #900;
     }
 
-    .pure-form .radio-group {
+    .pure-form fieldset {
         display: block;
         margin-bottom: 1.5em;
         border-radius: 3px;

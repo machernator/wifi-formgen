@@ -172,7 +172,7 @@ class Form {
             $out .= $this->renderFieldsets();
         }
         // wurde eine fieldOrder angegeben?  Es müssen alle Felder darin vorkommen
-        if (count($this->fieldOrder) === count($this->fields)) {
+        elseif (count($this->fieldOrder) === count($this->fields)) {
             foreach($this->fieldOrder as $fieldName) {
                 $out .= $this->fields[$fieldName]->render();
             }
@@ -190,11 +190,28 @@ class Form {
     private function renderFieldsets() : string {
         $out = '';
         foreach ($this->fieldsets as $fs) {
-            echo 'jipie';
             // fieldset Tag erstellen
-            //$out .= '<fieldset'
-        }
+            $out .= '<fieldset';
+            if (array_key_exists('tagAttributes', $fs)) {
+                $out .= $this->renderTagAttributes($fs);
+            }
+            $out .= '>';
+            
+            // Legend
+            if (array_key_exists('legend', $fs)) {
+                $out .= '<legend>' . $fs['legend'] . '</legend>';
+            }
+            // Felder müssen vorhanden sein
+            if (!array_key_exists('fields', $fs)) {
+                echo 'xxx';
+                continue;
+            }
+            foreach ($fs['fields'] as $fieldName) {
+                $out .= $this->fields[$fieldName]->render();
+            } 
 
+            $out .= '</fieldset>';
+        }
         return $out;
     }
 
@@ -229,8 +246,17 @@ class Form {
      * @return string   optinale Attribute eines HTML Tags
      */
     private function renderTagAttributes(array $attr=[]) : string {
+        $attributes = [];
+        // wurde kein Parameter mitgegeben, $this->tagAttributes verwenden
+        if (count($attr) === 0 || array_key_exists('tagAttributes', $attr) === false) {
+            $attributes = $this->tagAttributes;
+        }
+        else {
+            $attributes = $attr['tagAttributes'];
+        }
         $out = '';
-        foreach ($this->tagAttributes as $key => $value) {
+
+        foreach ($attributes as $key => $value) {
             $out .= ' ' .
                     $key .
                     '="' .
