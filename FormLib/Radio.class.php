@@ -3,6 +3,8 @@ namespace FormLib;
 
 class Radio extends FormField {
     private $values = [];
+    // Optionale CSS-Klasse für umschließendes fieldset.
+    private $fieldsetClass = '';
 
     public function __construct ($conf) {
         parent::__construct($conf);
@@ -12,14 +14,22 @@ class Radio extends FormField {
             count($conf['values']) > 0) {
             $this->values = $conf['values'];
         }
+
+        if (array_key_exists('fieldsetClass', $conf)) {
+            $this->fieldsetClass = $conf['fieldsetClass'];
+        }
     }
 
     /**
-     * Die Radio Buttons werden mit Label umschlossen erstellt.
+     * Die Radio Buttons werden mit fieldset umschlossen erstellt.
      * @return string
      */
     public function renderField() : string {
-        $out = '';
+        $fsClass = '';
+        if ($this->fieldsetClass !== '') {
+            $fsClass = ' class="' .  $this->fieldsetClass . '"';
+        }
+        $out = '<fieldset' . $fsClass  .'><caption>' . $this->label . '</caption>';
         foreach ($this->values as $value => $text) {
             $out .= '<label>';
             $out .= '<input type="radio" name="' .
@@ -38,6 +48,7 @@ class Radio extends FormField {
                     $out .= '> ' .
                     $text . '</label>';
         }
+        $out .= '</fieldset>';
 
         return $out;
     }

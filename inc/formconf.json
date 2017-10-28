@@ -14,14 +14,14 @@
                 "class": "two-fields"
             },
             "fields": [
+                "anrede",
                 "vorname",
                 "nachname"
             ]
         },
         {
-            "caption": "Wie haben Sie von uns erfahren",
+            "caption": "Newsletter lesen",
             "fields": [
-                "wohererfahren",
                 "newsletter"
             ]
         }
@@ -65,6 +65,7 @@
             "type": "radio",
             "label": "Anrede",
             "dataType": "whitelist",
+            "fieldsetClass": "radio-group",
             "id": "anrede",
             "values": {
                 "w": "Frau",
