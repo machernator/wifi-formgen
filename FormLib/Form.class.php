@@ -203,7 +203,6 @@ class Form {
             }
             // Felder müssen vorhanden sein
             if (!array_key_exists('fields', $fs)) {
-                echo 'xxx';
                 continue;
             }
             foreach ($fs['fields'] as $fieldName) {
