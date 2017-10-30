@@ -22,7 +22,8 @@
         {
             "legend": "Newsletter lesen",
             "fields": [
-                "newsletter"
+                "newsletter",
+                "senden"
             ]
         }
     ],

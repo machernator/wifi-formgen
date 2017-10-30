@@ -55,7 +55,7 @@
 
         $myForm = new FormLib\Form($formConf);
 
-        if (count($_POST) > 0) {
+        if (isset($_POST)) {
             if (!$myForm->isValid($_POST)) {
                 echo $myForm->render();
             }
